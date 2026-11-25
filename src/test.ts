@@ -8,9 +8,12 @@ const client = createClient({
 await client.connect()
 const storage = createRbacStorage(LocalStorage)
 
-await storage.loadFromRedis(client, "user:")
-const permissions = await storage.getPermissions("user")
+const result = await storage.loadFromRedis(client, "user:")
+console.log(result)
+const user = storage.getPermissions("user")
+const admin = storage.getPermissions("admin")
 
-console.log(permissions)
+console.log("user: ", user)
+console.log("admin: ", admin)
 
 

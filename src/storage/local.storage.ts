@@ -9,7 +9,7 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
       this.access?.set(role, {
         can: new Set(["none"]),
       });
-     
+
       return MESSAGE.success;
     }
     return MESSAGE.nochange;
@@ -81,20 +81,34 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
     return [];
   }
 
-  async loadFromRedis(redis: RedisClientType, access_key: string): Promise<void> {
+  async loadFromRedis(
+    redis: RedisClientType,
+    access_key: string,
+  ): Promise<string> {
     const data = await redis.scan("0", {
       MATCH: `${access_key}*`,
       TYPE: "set",
     });
+    if (!data) return MESSAGE.failed;
 
     const roles = data.keys;
+    if (!roles.length) return MESSAGE.failed;
 
+    const multi = redis.multi();
     for (const role of roles) {
-      const str_role = String(role).replace(access_key, "")
-      this.addRole(str_role);
-      const permissions = await redis.sMembers(role);
-      this.addMPermissions(str_role, permissions as string[]);
+      multi.sMembers(role);
     }
+    const merged_permissions = await multi.exec();
+
+    for (let i = 0; i < merged_permissions.length; i++) {
+      const role_without_access_key = String(roles[i]).replace(access_key, "");
+      this.addRole(role_without_access_key);
+      this.addMPermissions(
+        role_without_access_key,
+        merged_permissions[i] as unknown as string[],
+      );
+    }
+    return MESSAGE.success;
   }
 
   deleteRole(role: string): string {
