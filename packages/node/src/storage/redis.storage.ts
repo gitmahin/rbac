@@ -1,6 +1,6 @@
-import { RbacDataProvider } from "../data-provider";
-import type { IStorage } from "../interfaces";
-import { MESSAGE } from "../constant";
+import { RbacDataProvider } from "@/data-provider";
+import type { IStorage } from "@rbac/types";
+import { MESSAGE } from "@rbac/constants";
 import type { RedisClientType } from "../type";
 
 export class RedisStorage extends RbacDataProvider implements IStorage {

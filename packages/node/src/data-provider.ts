@@ -1,7 +1,4 @@
-export type PermissionsType = {
-  can: Set<string>;
-};
-export type AccessDataType = Map<string, PermissionsType>;
+import type { AccessDataType } from "@rbac/types";
 
 export class RbacDataProvider {
   protected access: AccessDataType | null = null;

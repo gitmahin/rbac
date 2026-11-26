@@ -1,0 +1,15 @@
+{
+  "name": "@rbac/types",
+  "version": "0.1.0",
+  "types": "src/index.d.ts",
+  "license": "AGPL-3.0",
+  "exports": {
+    ".": {
+      "import": "./src/index.d.ts",
+      "types": "./src/index.d.ts"
+    }
+  },
+  "scripts": {
+    "gen:docs": "typedoc --out docs"
+  }
+}

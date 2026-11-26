@@ -1,7 +1,7 @@
-import { MESSAGE } from "../constant";
-import { RbacDataProvider, type PermissionsType } from "../data-provider";
-import type { IStorage } from "../interfaces";
-import type { RedisClientType } from "../type";
+import { MESSAGE } from "@rbac/constants";
+import { RbacDataProvider } from "@/data-provider";
+import type { IStorage } from "@rbac/types";
+import type { RedisClientType } from "@/type";
 
 export class LocalStorage extends RbacDataProvider implements IStorage {
   addRole(role: string): string {

@@ -1,7 +1,11 @@
 {
   "extends": "@rbac/typescript-config/base.json",
   "compilerOptions": {
+    "rootDir": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "outDir": "dist"
   },
-  "include": ["src"]
+  "include": ["src", "../types/src/interfaces"]
 }
