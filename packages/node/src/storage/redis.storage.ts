@@ -38,12 +38,12 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
 
   async hasBulkPermissions(
     role: string,
-    permissions: string[],
+    permissions: string[]
   ): Promise<boolean> {
     let is_has: boolean | null = null;
     const data = await RedisStorage.redis.smIsMember(
       this.uid + role,
-      permissions,
+      permissions
     );
 
     for (const permission of data) {
@@ -60,7 +60,7 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
   async hasPermission(role: string, permission: string): Promise<boolean> {
     return (
       Number(
-        await RedisStorage.redis.sIsMember(this.uid + role, permission),
+        await RedisStorage.redis.sIsMember(this.uid + role, permission)
       ) === 1
     );
   }
@@ -72,12 +72,12 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
   async getHasPermissions(
     role: string,
     permissions: string[],
-    output: "number" | "string" = "string",
+    output: "number" | "string" = "string"
   ): Promise<string[] | number[]> {
     const arr_str: string[] = [];
     const data = await RedisStorage.redis.smIsMember(
       this.uid + role,
-      permissions,
+      permissions
     );
     // @ts-ignore
     if (output == "number") return data;
@@ -95,7 +95,7 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
 
   async removePermissions(
     role: string,
-    permissions: string[],
+    permissions: string[]
   ): Promise<string> {
     const res = await RedisStorage.redis.sRem(this.uid + role, permissions);
     if (Number(res) >= 1) return MESSAGE.success;

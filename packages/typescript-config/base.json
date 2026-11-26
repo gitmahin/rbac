@@ -10,7 +10,7 @@
     "incremental": true,
     "isolatedModules": true,
     "declarationMap": true,
-    "lib": ["ES2025", "DOM"],
+    "lib": ["ES2025"],
     "module": "preserve",
     "exactOptionalPropertyTypes": false,
     "moduleDetection": "force",

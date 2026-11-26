@@ -1,0 +1,25 @@
+{
+  "name": "@rbac/eslint-config",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./base": "./base.js",
+    "./next-js": "./next.js",
+    "./react-internal": "./react-internal.js"
+  },
+  "scripts": {
+    "clean": "rm -rf node_modules && echo 'Cleanup complete!'"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10",
+    "eslint-config-next": "^16.1.6",
+    "eslint-config-prettier": "^10.0.2",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-turbo": "^2.4.4",
+    "globals": "^16.0.0",
+    "typescript-eslint": "^8.26.0"
+  }
+}
