@@ -47,7 +47,7 @@ jobs:
       - name: Install dependencies
         run: pnpm i
       - name: Build the package
-        run: pnpm build --filter @rbac/node
+        run: pnpm build --filter @rbac-kit/node
       - name: Publish to NPM 
         if: steps.check-version.outputs.version_changed == 'true'
         run: cd packages/node && npm publish --access public --no-git-checks
