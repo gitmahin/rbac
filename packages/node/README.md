@@ -1,4 +1,4 @@
-# @rbac/node
+# @rbac-kit/node
 
 Lightweight, type-safe RBAC (Role-Based Access Control) with pluggable storage: in-memory or Redis.
 
@@ -13,7 +13,7 @@ Lightweight, type-safe RBAC (Role-Based Access Control) with pluggable storage: 
 ## Installation
 
 ```bash
-npm install @rbac/node
+npm install @rbac-kit/node
 # Redis backend only:
 npm install redis
 ```
@@ -24,7 +24,7 @@ npm install redis
 
 ```typescript
 import { createClient } from "redis";
-import { createRbacStorage, RedisStorage } from "@rbac/node";
+import { createRbacStorage, RedisStorage } from "@rbac-kit/node";
 
 const client = createClient({ url: "redis://localhost:6379" });
 await client.connect();
@@ -44,7 +44,7 @@ await storage.getHasPermissions("admin", ["post:read", "post:ban"], "number"); /
 ### Local (in-memory) storage
 
 ```typescript
-import { createRbacStorage, LocalStorage } from "@rbac/node";
+import { createRbacStorage, LocalStorage } from "@rbac-kit/node";
 
 const storage = createRbacStorage(LocalStorage);
 
