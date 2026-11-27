@@ -1,5 +1,5 @@
 {
-  "name": "@rbac/node",
+  "name": "@rbac-kit/node",
   "description": "Lightweight, type-safe RBAC for Node.js with pluggable in-memory and Redis storage.",
   "version": "1.0.0",
   "main": "./dist/index.js",
