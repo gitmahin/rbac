@@ -43,10 +43,10 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-      "@rbac/constants": "workspace:*"
+    "@rbac/constants": "workspace:*"
   },
   "devDependencies": {
-      "@rbac/eslint-config": "workspace:*",
+    "@rbac/eslint-config": "workspace:*",
     "@rbac/typescript-config": "workspace:*"
   },
   "peerDependencies": {
