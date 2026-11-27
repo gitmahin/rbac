@@ -1,7 +1,7 @@
 {
   "name": "@rbac-kit/node",
   "description": "Lightweight, type-safe RBAC for Node.js with pluggable in-memory and Redis storage.",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -42,10 +42,8 @@
   "author": "Nimul Islam Mahin nimulmahin@gmail.com",
   "license": "MIT",
   "type": "module",
-  "dependencies": {
-    "@rbac/constants": "workspace:*"
-  },
   "devDependencies": {
+    "@rbac/constants": "workspace:*",
     "@rbac/eslint-config": "workspace:*",
     "@rbac/typescript-config": "workspace:*"
   },

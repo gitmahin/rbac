@@ -302,13 +302,13 @@ importers:
 
   packages/node:
     dependencies:
-      '@rbac/constants':
-        specifier: workspace:*
-        version: link:../constants
       redis:
         specifier: ^6.4.0
         version: 6.4.0
     devDependencies:
+      '@rbac/constants':
+        specifier: workspace:*
+        version: link:../constants
       '@rbac/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
