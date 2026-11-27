@@ -23,6 +23,13 @@
   "author": "nimahin25@gmail.com",
   "license": "MIT",
   "type": "module",
+  "dependencies": {
+    "@rbac/constants": "workspace:*"
+  },
+  "devDependencies": {
+    "@rbac/eslint-config": "workspace:*",
+    "@rbac/typescript-config": "workspace:*"
+  },
   "peerDependencies": {
     "mobx": "^7.1.7",
     "mobx-react": "^10.0.4"

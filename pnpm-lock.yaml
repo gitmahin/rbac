@@ -165,10 +165,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@rbac/constants':
-        specifier: workspace:*
-        version: link:packages/constants
     devDependencies:
       '@commitlint/cli':
         specifier: ^21.2.4
@@ -185,15 +181,9 @@ importers:
       '@commitlint/types':
         specifier: ^21.2.3
         version: 21.2.3
-      '@rbac/eslint-config':
-        specifier: workspace:*
-        version: link:packages/eslint-config
       '@rbac/types':
         specifier: workspace:*
         version: link:packages/types
-      '@rbac/typescript-config':
-        specifier: workspace:*
-        version: link:packages/typescript-config
       '@types/node':
         specifier: ^26.6.6
         version: 26.6.6
@@ -305,18 +295,38 @@ importers:
 
   packages/node:
     dependencies:
+      '@rbac/constants':
+        specifier: workspace:*
+        version: link:../constants
       redis:
         specifier: ^6.4.0
         version: 6.4.0
+    devDependencies:
+      '@rbac/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@rbac/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
 
   packages/react:
     dependencies:
+      '@rbac/constants':
+        specifier: workspace:*
+        version: link:../constants
       mobx:
         specifier: ^7.1.7
         version: 7.1.7
       mobx-react:
         specifier: ^10.0.4
         version: 10.0.4(mobx@7.1.7)(react@19.3.0)
+    devDependencies:
+      '@rbac/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@rbac/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
 
   packages/types: {}
 

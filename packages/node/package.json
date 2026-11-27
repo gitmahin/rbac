@@ -42,6 +42,13 @@
   "author": "Nimul Islam Mahin nimulmahin@gmail.com",
   "license": "MIT",
   "type": "module",
+  "dependencies": {
+      "@rbac/constants": "workspace:*"
+  },
+  "devDependencies": {
+      "@rbac/eslint-config": "workspace:*",
+    "@rbac/typescript-config": "workspace:*"
+  },
   "peerDependencies": {
     "redis": "^6.4.0"
   }
