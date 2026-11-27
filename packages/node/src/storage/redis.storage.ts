@@ -10,7 +10,7 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
   constructor(redis: RedisClientType, uid: string) {
     super();
     RedisStorage.redis = redis;
-    this.uid = uid;
+    this.uid = `${uid}:`;
   }
 
   async addRole(role: string): Promise<string> {
@@ -106,5 +106,22 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
     const res = await RedisStorage.redis.del(this.uid + role);
     if (res == 1) return MESSAGE.success;
     else return MESSAGE.nochange;
+  }
+
+  async getRoles(): Promise<string[] | string> {
+    const data = await RedisStorage.redis.scan("0", {
+      MATCH: `${this.uid}*`,
+    });
+
+    if (!data) return MESSAGE.failed;
+    const keys = data.keys;
+    console.log(data);
+
+    if (!keys.length) return MESSAGE.failed;
+
+    const roles: string[] = keys.map((item) =>
+      (item as string).replace(this.uid, "")
+    );
+    return roles ?? [];
   }
 }

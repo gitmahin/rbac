@@ -6,12 +6,10 @@ const client = createClient({
 });
 
 await client.connect();
-const storage = createRbacStorage(LocalStorage);
+const storage = createRbacStorage(RedisStorage, client, "user");
 
-const result = await storage.loadFromRedis(client, "user:");
+await storage.addRole("hello");
+await storage.addRole("admin");
+await storage.addRole("user");
+const result = await storage.getRoles();
 console.log(result);
-const user = storage.getPermissions("user");
-const admin = storage.getPermissions("admin");
-
-console.log("user: ", user);
-console.log("admin: ", admin);

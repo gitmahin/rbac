@@ -101,7 +101,10 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
     const merged_permissions = await multi.exec();
 
     for (let i = 0; i < merged_permissions.length; i++) {
-      const role_without_access_key = String(roles[i]).replace(access_key, "");
+      const role_without_access_key = (roles[i] as string).replace(
+        `${access_key}:`,
+        ""
+      );
       this.addRole(role_without_access_key);
       this.addMPermissions(
         role_without_access_key,
@@ -128,5 +131,10 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
 
     if (num_of_deletes > 0) return MESSAGE.success;
     else return MESSAGE.nochange;
+  }
+
+  getRoles(): string[] {
+    if (!this.access) return [];
+    return [...this.access.keys()] as unknown as string[];
   }
 }

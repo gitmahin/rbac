@@ -33,4 +33,5 @@ export interface IStorage {
     permissions: string[]
   ): Promise<string> | string;
   deleteRole(role: string): Promise<string> | string;
+  getRoles(): string[] | Promise<string[] | string>;
 }
