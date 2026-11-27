@@ -81,12 +81,9 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
     return [];
   }
 
-  async loadFromRedis(
-    redis: RedisClientType,
-    access_key: string
-  ): Promise<string> {
+  async loadFromRedis(redis: RedisClientType, uid: string): Promise<string> {
     const data = await redis.scan("0", {
-      MATCH: `${access_key}*`,
+      MATCH: `${uid}*`,
       TYPE: "set",
     });
     if (!data) return MESSAGE.failed;
@@ -102,7 +99,7 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
 
     for (let i = 0; i < merged_permissions.length; i++) {
       const role_without_access_key = (roles[i] as string).replace(
-        `${access_key}:`,
+        `${uid}:`,
         ""
       );
       this.addRole(role_without_access_key);

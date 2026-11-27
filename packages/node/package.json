@@ -1,7 +1,7 @@
 {
   "name": "@rbac/node",
+  "description": "Lightweight, type-safe RBAC for Node.js with pluggable in-memory and Redis storage.",
   "version": "1.0.0",
-  "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,17 +12,34 @@
     },
     "./package.json": "./package.json"
   },
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "dev": "tsx src/index.ts",
     "build": "tsdown",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "homepage": "https://github.com/gitmahin/rbac#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitmahin/rbac.git"
+  },
   "keywords": [
     "rbac",
-    "node",
-    "redis"
+    "role-based-access-control",
+    "access-control",
+    "authorization",
+    "permissions",
+    "roles",
+    "acl",
+    "redis",
+    "in-memory",
+    "storage",
+    "typescript",
+    "nodejs"
   ],
-  "author": "nimahin25@gmail.com",
+  "author": "Nimul Islam Mahin nimulmahin@gmail.com",
   "license": "MIT",
   "type": "module",
   "peerDependencies": {
