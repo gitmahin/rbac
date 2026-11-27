@@ -17,6 +17,10 @@
     "build": "tsdown",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "devDependencies": {
+    "@rbac/eslint-config": "workspace:*",
+    "@rbac/typescript-config": "workspace:*"
+  },
   "keywords": [],
   "author": "",
   "license": "",

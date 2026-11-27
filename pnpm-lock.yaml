@@ -261,7 +261,14 @@ importers:
         specifier: ^5
         version: 5.9.3
 
-  packages/constants: {}
+  packages/constants:
+    devDependencies:
+      '@rbac/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@rbac/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
 
   packages/eslint-config:
     devDependencies:
