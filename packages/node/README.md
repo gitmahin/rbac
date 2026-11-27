@@ -101,7 +101,7 @@ createRbacStorage(StorageClass, ...constructorArgs);
 | `addPermission` | O(1) | O(1) |
 | `addMPermissions` | O(k) | O(k) |
 | `hasRole` | O(1) | O(1) |
-| `getPermissions` | O(1) | O(p) |
+| `getPermissions` | O(p) | O(p) |
 | `hasPermission` | O(1) | O(1) |
 | `hasBulkPermissions` | O(k) | O(k) |
 | `getHasPermissions` | O(k) | O(k) |
