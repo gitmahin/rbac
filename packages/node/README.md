@@ -33,12 +33,12 @@ await client.connect();
 const storage = createRbacStorage(RedisStorage, client, "user");
 
 await storage.addRole("admin");
-await storage.addMPermissions("admin", ["read", "write", "delete"]);
+await storage.addMPermissions("admin", ["post:read", "post:write", "post:delete"]);
 
-await storage.hasPermission("admin", "read"); // true
-await storage.hasBulkPermissions("admin", ["read", "write"]); // true
-await storage.getHasPermissions("admin", ["read", "ban"]); // ["read"]
-await storage.getHasPermissions("admin", ["read", "ban"], "number"); // [1, 0]
+await storage.hasPermission("admin", "post:read"); // true
+await storage.hasBulkPermissions("admin", ["post:read", "post:write"]); // true
+await storage.getHasPermissions("admin", ["post:read", "post:ban"]); // ["post:read"]
+await storage.getHasPermissions("admin", ["post:read", "post:ban"], "number"); // [1, 0]
 ```
 
 ### Local (in-memory) storage
@@ -49,8 +49,8 @@ import { createRbacStorage, LocalStorage } from "@rbac/node";
 const storage = createRbacStorage(LocalStorage);
 
 storage.addRole("editor");
-storage.addMPermissions("editor", ["read", "write"]);
-storage.hasPermission("editor", "write"); // true
+storage.addMPermissions("editor", ["post:read", "post:write"]);
+storage.hasPermission("editor", "post:write"); // true
 ```
 
 ### Hybrid: Redis as source of truth, local as cache

@@ -115,7 +115,6 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
 
     if (!data) return MESSAGE.failed;
     const keys = data.keys;
-    console.log(data);
 
     if (!keys.length) return MESSAGE.failed;
 

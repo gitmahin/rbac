@@ -16,7 +16,7 @@ export interface IStorage {
   hasRole(role: string): boolean | Promise<boolean>;
   getPermissions(
     role: string
-  ): string[] | Set<string> | undefined | Promise<string[]>;
+  ): string[] | undefined | Promise<string[]>;
   hasPermission(role: string, permission: string): boolean | Promise<boolean>;
   // Performs AND Operation
   hasBulkPermissions(

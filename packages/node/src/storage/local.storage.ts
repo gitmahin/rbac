@@ -5,8 +5,8 @@ import type { RedisClientType } from "@/type";
 
 export class LocalStorage extends RbacDataProvider implements IStorage {
   addRole(role: string): string {
-    if (!this.access?.get(role)) {
-      this.access?.set(role, {
+    if (!this.access.get(role)) {
+      this.access.set(role, {
         can: new Set(["none"]),
       });
 
@@ -16,18 +16,18 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
   }
 
   addMPermissions(role: string, permissions: string[]): string {
-    const existed_role = this.access?.get(role);
+    const existed_role = this.access.get(role);
     if (!existed_role) {
       this.addRole(role);
     }
     for (const permission of permissions) {
-      this.access?.get(role)!.can.add(permission);
+      this.access.get(role)!.can.add(permission);
     }
     return MESSAGE.success;
   }
 
   addPermission(role: string, permission: string): string {
-    const existed_role = this.access?.get(role);
+    const existed_role = this.access.get(role);
     if (!existed_role) {
       this.addRole(role);
     }
@@ -37,22 +37,22 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
   }
 
   hasRole(role: string): boolean {
-    return this.access?.has(role) ?? false;
+    return this.access.has(role) ?? false;
   }
 
-  getPermissions(role: string): string[] | Set<string> | undefined {
-    return this.access?.get(role)?.can ?? undefined;
+  getPermissions(role: string): string[] | undefined {
+    if(!this.access) return []
+    return [...this.access.get(role)?.can.values() ?? []] as unknown as string[];
   }
 
   hasPermission(role: string, permission: string): boolean {
-    return this.access?.get(role)?.can.has(permission) ?? false;
+    return this.access.get(role)?.can.has(permission) ?? false;
   }
 
-  // Performs AND Operation
   hasBulkPermissions(role: string, permissions: string[]): boolean {
     let is_has_permission: boolean | null = null;
     for (const permission of permissions) {
-      is_has_permission = this.access?.get(role)?.can.has(permission) ?? false;
+      is_has_permission = this.access.get(role)?.can.has(permission) ?? false;
       if (is_has_permission === false) {
         break;
       }
@@ -70,7 +70,7 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
 
     for (const permission of permissions) {
       const hasPermission: boolean =
-        this.access?.get(role)?.can.has(permission) ?? false;
+        this.access.get(role)?.can.has(permission) ?? false;
 
       if (output == "number") arr_num.push(hasPermission ? 1 : 0);
       if (output == "string") hasPermission && arr_str.push(permission);
@@ -112,7 +112,7 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
   }
 
   deleteRole(role: string): string {
-    const res = this.access?.delete(role);
+    const res = this.access.delete(role);
     if (res) return MESSAGE.success;
     else return MESSAGE.nochange;
   }
@@ -120,7 +120,7 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
   removePermissions(role: string, permissions: string[]): string {
     let num_of_deletes = 0;
     for (const permission of permissions) {
-      const res = this.access?.get(role)?.can.delete(permission);
+      const res = this.access.get(role)?.can.delete(permission);
       if (res) {
         num_of_deletes++;
       }
