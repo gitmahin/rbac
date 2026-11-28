@@ -1,0 +1,115 @@
+name: 🚀 Feature Request
+description: Suggest an enhancement or new functionality for @rbac-kit/node
+title: "[feat]: "
+labels: [feature, triage]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion! Please describe the problem first, then the solution you have in mind.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and discussions and this has not been requested
+          required: true
+
+  - type: input
+    id: summary
+    attributes:
+      label: Feature Summary
+      description: A short, concise title for the feature
+      placeholder: e.g. Add role inheritance (admin inherits editor permissions)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected Area
+      description: Which part of the library does this touch?
+      multiple: true
+      options:
+        - LocalStorage
+        - RedisStorage
+        - loadFromRedis / local caching
+        - createRbacStorage factory
+        - Types / TypeScript API
+        - Testing utilities
+        - Documentation
+        - New storage backend
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use Case
+      description: What problem are you trying to solve? Describe your situation, not only the solution.
+      placeholder: e.g. I have 20 roles that share most permissions, and keeping them in sync by hand is error-prone.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution
+      description: How should it work? Describe expected behavior, return values, and edge cases (empty strings, missing roles, etc.).
+      placeholder: e.g. storage.addParentRole("admin", "editor") makes admin inherit all of editor's permissions.
+    validations:
+      required: true
+
+  - type: textarea
+    id: api_example
+    attributes:
+      label: API Example
+      description: Show how you would like to call the new API
+      render: typescript
+      placeholder: |
+        const storage = createRbacStorage(RedisStorage, client, "user");
+
+        await storage.addParentRole("admin", "editor");
+        await storage.hasPermission("admin", "post:write"); // true via editor
+    validations:
+      required: false
+
+  - type: dropdown
+    id: breaking
+    attributes:
+      label: Breaking Change?
+      description: Would this change existing behavior or method signatures?
+      options:
+        - No, purely additive
+        - Yes, it changes existing behavior
+        - Not sure
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Workarounds or other approaches you tried (e.g. wrapping the storage class yourself)
+      placeholder: e.g. I currently loop over parent roles in application code and merge permissions manually.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Related issues, links to similar libraries (Casbin, AccessControl), benchmarks, etc.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contribution
+      options:
+        - label: I'm willing to open a pull request for this
+          required: false

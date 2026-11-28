@@ -1,0 +1,152 @@
+name: 🐞 Bug Report
+description: Report something that's broken or not working as expected
+title: "[bug]: "
+labels: [bug, triage]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill out this form so we can reproduce and fix it faster.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and this has not been reported
+          required: true
+        - label: I am using the latest version of `@rbac-kit/node`
+          required: false
+
+  - type: input
+    id: summary
+    attributes:
+      label: Bug Summary
+      description: A clear and concise title of the bug
+      placeholder: e.g. addPermission returns "success" but the permission is not stored
+    validations:
+      required: true
+
+  - type: dropdown
+    id: storage
+    attributes:
+      label: Storage Backend
+      description: Which storage class is affected?
+      options:
+        - LocalStorage
+        - RedisStorage
+        - LocalStorage.loadFromRedis
+        - Both / not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal Reproduction
+      description: A short, self-contained snippet that triggers the bug
+      render: typescript
+      placeholder: |
+        import { createRbacStorage, LocalStorage } from "@rbac-kit/node";
+
+        const storage = createRbacStorage(LocalStorage);
+        storage.addPermission("admin", "post:delete");
+        console.log(storage.getPermissions("admin"));
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Step-by-step, if the snippet above isn't enough (e.g. needs Redis state)
+      placeholder: |
+        1. Create a role with ...
+        2. Call ...
+        3. See the error
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: e.g. getPermissions("admin") returns ["none", "post:delete"]
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: e.g. getPermissions("admin") returns ["none"]
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Errors
+      description: Paste stack traces or error output
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: package-version
+    attributes:
+      label: "@rbac-kit/node Version"
+      placeholder: e.g. 1.2.0
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js Version
+      description: Output of `node -v`
+      placeholder: e.g. v22.11.0
+    validations:
+      required: true
+
+  - type: input
+    id: redis-client
+    attributes:
+      label: Redis Client Version
+      description: Only for RedisStorage / loadFromRedis (`redis` package version)
+      placeholder: e.g. redis@5.0.1
+    validations:
+      required: false
+
+  - type: input
+    id: redis-server
+    attributes:
+      label: Redis Server Version
+      description: Only for RedisStorage / loadFromRedis (`redis-server --version`). Redis 6.2+ is required for SMISMEMBER.
+      placeholder: e.g. 7.2.4
+    validations:
+      required: false
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Anything else that might help us debug
+      placeholder: e.g. Only happens with large keyspaces, or when multiple instances share a client
+    validations:
+      required: false
