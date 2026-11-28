@@ -49,3 +49,6 @@ test.sql
 packages/*/docs
 apps/*/docs
 templates/*/docs
+
+# Vitest reports and artifacts
+.vitest/

@@ -33,15 +33,16 @@
     "@commitlint/prompt-cli": "^21.2.4",
     "@commitlint/types": "^21.2.3",
     "@rbac/types": "workspace:*",
-    "prettier": "^3.6.2",
     "@types/node": "^26.6.6",
     "commitizen": "^4.3.2",
     "commitlint-plugin-tense": "^1.0.12",
     "conventional-changelog-conventionalcommits": "^10.4.1",
     "husky": "^9.1.7",
     "inquirer": "^14.3.1",
+    "prettier": "^3.6.2",
     "tsdown": "^0.23.7",
     "turbo": "^2.11.13",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.2"
   }
 }
