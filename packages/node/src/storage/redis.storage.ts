@@ -60,7 +60,7 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
     );
 
     for (const permission of data) {
-      is_has = permission === 1;
+      is_has = Number(permission) === 1;
 
       if (is_has == false) {
         break;
@@ -120,10 +120,10 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
       MATCH: `${this.uid}*`,
     });
 
-    if (!data) return MESSAGE.failed;
+    if (!data) return [];
     const keys = data.keys;
 
-    if (!keys.length) return MESSAGE.failed;
+    if (!keys.length) return [];
 
     const roles: string[] = keys.map((item) =>
       (item as string).replace(this.uid, "")
