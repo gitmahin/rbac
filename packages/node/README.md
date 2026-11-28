@@ -14,7 +14,6 @@ Lightweight, type-safe RBAC (Role-Based Access Control) with pluggable storage: 
 
 ```bash
 npm install @rbac-kit/node
-# Redis backend only:
 npm install redis
 ```
 
@@ -26,7 +25,7 @@ npm install redis
 import { createClient } from "redis";
 import { createRbacStorage, RedisStorage } from "@rbac-kit/node";
 
-const client = createClient({ url: "redis://localhost:6379" });
+const client = createClient({ url: "redis://localhost:6379", username: "default", password: "<password>" });
 await client.connect();
 
 // "user" is a key prefix: roles are stored as `user:<role>`
@@ -65,7 +64,7 @@ local.hasPermission("admin", "read"); // sync, no network call
 ## API
 
 All methods on `RedisStorage` return Promises. `LocalStorage` methods are synchronous.
-Mutating methods return `"success"` or `"nochange"` (see `MESSAGE` constants).
+Mutating methods return `"success"` or `"nochange"`.
 
 | Method | Description |
 |---|---|
