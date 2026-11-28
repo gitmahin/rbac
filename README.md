@@ -20,7 +20,7 @@
 [![Issues](https://img.shields.io/github/issues/gitmahin/rbac-kit?style=flat-square)](https://github.com/gitmahin/rbac-kit/issues)
 [![Pull Requests](https://img.shields.io/github/issues-pr/gitmahin/rbac-kit?style=flat-square)](https://github.com/gitmahin/rbac-kit/pulls)
 [![Last Commit](https://img.shields.io/github/last-commit/gitmahin/rbac-kit?style=flat-square)](https://github.com/gitmahin/rbac-kit/commits)
-[![Next.js](https://img.shields.io/badge/Next.js-black?style=flat-square&logo=nextdotjs)](https://nextjs.org)
+
 
 <br />
 
@@ -29,12 +29,6 @@
 [**Request Feature**](https://github.com/gitmahin/rbac-kit/issues/new?labels=enhancement)
 
 <br />
-
-<a href="https://github.com/gitmahin/rbac-kit">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=gitmahin&repo=rbac-kit&theme=transparent&show_owner=true" alt="Repo stats card" />
-</a>
-
-<br /><br />
 
 <a href="https://github.com/gitmahin/rbac-kit/stargazers"><img src="https://img.shields.io/badge/%E2%AD%90_Star_this_repo-yellow?style=for-the-badge" alt="Star this repo" /></a>
 <a href="https://github.com/gitmahin/rbac-kit/fork"><img src="https://img.shields.io/badge/%F0%9F%8D%B4_Fork-blue?style=for-the-badge" alt="Fork" /></a>
