@@ -2,6 +2,7 @@ import { createRbacStorage } from "@/createRbacStorage";
 import { LocalStorage } from "@/storage";
 import { MESSAGE } from "@rbac/constants";
 import { beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
+import { mockRedis } from "./utils";
 
 describe("LocalStorage", () => {
   describe("Check hasRole method", () => {
@@ -411,6 +412,37 @@ describe("LocalStorage", () => {
         ]);
         expect(res).toBe(MESSAGE.nochange);
       });
+    });
+  });
+
+  describe("Loading Permissions From Redis", () => {
+    let local: LocalStorage;
+    beforeEach(() => {
+      local = createRbacStorage(LocalStorage);
+    });
+
+    test("loads roles and permissions, stripping the prefix", async () => {
+      const { redis } = mockRedis(
+        ["user:admin", "user:editor"],
+        [["post:read", "post:write"], ["post:read"]]
+      );
+
+      const res = await local.loadFromRedis(redis, "user");
+
+      expect(res).toBe(MESSAGE.success);
+      expect(local.getRoles()).toEqual(
+        expect.arrayContaining(["admin", "editor"])
+      );
+      expect(
+        local.hasBulkPermissions("admin", ["post:read", "post:write"])
+      ).toBe(true);
+      expect(local.hasPermission("editor", "post:write")).toBe(false);
+    });
+
+    test("returns failed when no keys match", async () => {
+      const { redis } = mockRedis([], []);
+      expect(await local.loadFromRedis(redis, "user")).toBe(MESSAGE.failed);
+      expect(local.getRoles()).toEqual([]);
     });
   });
 });
