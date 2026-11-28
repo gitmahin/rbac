@@ -14,32 +14,45 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
   }
 
   async addRole(role: string): Promise<string> {
+    if (role == "") return MESSAGE.failed;
     const res = await RedisStorage.redis.sAdd(this.uid + role, "none");
     if (res == 1) return MESSAGE.success;
     else return MESSAGE.nochange;
   }
 
   async addPermission(role: string, permission: string): Promise<string> {
+    if (role == "" || permission == "") return MESSAGE.failed;
     const res = await RedisStorage.redis.sAdd(this.uid + role, permission);
     if (res == 1) return MESSAGE.success;
     else return MESSAGE.nochange;
   }
 
   async addMPermissions(role: string, permissions: string[]): Promise<string> {
+    if (role == "" || !permissions.length) return MESSAGE.failed;
     const res = await RedisStorage.redis.sAdd(this.uid + role, permissions);
     if (Number(res) >= 1) return MESSAGE.success;
     else return MESSAGE.nochange;
   }
 
   async getPermissions(role: string): Promise<string[]> {
+    if (role == "") return [];
     // @ts-ignore
     return (await RedisStorage.redis.sMembers(this.uid + role)) ?? [];
+  }
+
+  async hasPermission(role: string, permission: string): Promise<boolean> {
+    return (
+      Number(
+        await RedisStorage.redis.sIsMember(this.uid + role, permission)
+      ) === 1
+    );
   }
 
   async hasBulkPermissions(
     role: string,
     permissions: string[]
   ): Promise<boolean> {
+    if (role == "" || !permissions.length) return false;
     let is_has: boolean | null = null;
     const data = await RedisStorage.redis.smIsMember(
       this.uid + role,
@@ -57,14 +70,6 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
     return is_has ?? false;
   }
 
-  async hasPermission(role: string, permission: string): Promise<boolean> {
-    return (
-      Number(
-        await RedisStorage.redis.sIsMember(this.uid + role, permission)
-      ) === 1
-    );
-  }
-
   async hasRole(role: string): Promise<boolean> {
     return Number(await RedisStorage.redis.exists(this.uid + role)) === 1;
   }
@@ -74,6 +79,7 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
     permissions: string[],
     output: "number" | "string" = "string"
   ): Promise<string[] | number[]> {
+    if (role == "" || !permissions.length) return [];
     const arr_str: string[] = [];
     const data = await RedisStorage.redis.smIsMember(
       this.uid + role,
@@ -97,6 +103,7 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
     role: string,
     permissions: string[]
   ): Promise<string> {
+    if (role == "" || !permissions.length) return MESSAGE.failed;
     const res = await RedisStorage.redis.sRem(this.uid + role, permissions);
     if (Number(res) >= 1) return MESSAGE.success;
     else return MESSAGE.nochange;

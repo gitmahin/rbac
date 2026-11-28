@@ -1,7 +1,7 @@
 {
   "name": "@rbac-kit/node",
   "description": "Lightweight, type-safe RBAC for Node.js with pluggable in-memory and Redis storage.",
-  "version": "1.4.3",
+  "version": "1.5.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "tsx src/index.ts",
     "build": "tsdown",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "homepage": "https://github.com/gitmahin/rbac/tree/main/packages/node#readme",
   "repository": {
