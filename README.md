@@ -3,13 +3,16 @@
 <a href="https://github.com/gitmahin/rbac-kit">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./public/logo-dark.png">
-    <img src="./public/logo.png" alt="RBAC Kit logo" width="120">
+    <img src="./public/logo.png" alt="RBAC Kit logo" width="350">
   </picture>
 </a>
 
 # RBAC Kit
 
+<div align="center">
+
 **Type-safe role-based access control for Node.js, with in-memory and Redis storage.**
+
 [![npm version](https://img.shields.io/npm/v/@rbac-kit/node?style=for-the-badge&logo=npm&color=cb3837)](https://www.npmjs.com/package/@rbac-kit/node)
 [![npm downloads](https://img.shields.io/npm/dm/@rbac-kit/node?style=for-the-badge&logo=npm&color=blue)](https://www.npmjs.com/package/@rbac-kit/node)
 [![License](https://img.shields.io/github/license/gitmahin/rbac-kit?style=for-the-badge&color=green)](./LICENSE)
@@ -21,6 +24,7 @@
 [![Pull Requests](https://img.shields.io/github/issues-pr/gitmahin/rbac-kit?style=flat-square)](https://github.com/gitmahin/rbac-kit/pulls)
 [![Last Commit](https://img.shields.io/github/last-commit/gitmahin/rbac-kit?style=flat-square)](https://github.com/gitmahin/rbac-kit/commits)
 
+</div>
 
 <br />
 
