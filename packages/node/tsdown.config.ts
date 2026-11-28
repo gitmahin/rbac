@@ -5,6 +5,7 @@ export default defineConfig({
   format: ["esm"],
   dts: true,
   platform: "neutral",
+  clean: true,
   deps: {
     alwaysBundle: ["@rbac/constants", "@rbac/types"],
   },

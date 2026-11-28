@@ -46,6 +46,8 @@ jobs:
         run: npm install -g pnpm
       - name: Install dependencies
         run: pnpm i
+      - name: Build All Packages
+        run: pnpm build --filter "./packages/*"
       - name: Test Apis
         run: pnpm --filter @rbac-kit/node run test
       - name: Build the package
