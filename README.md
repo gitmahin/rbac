@@ -3,7 +3,7 @@
 <a href="https://github.com/gitmahin/rbac-kit">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./public/logo-dark.png">
-    <img src="./public/logo.png" alt="RBAC Kit logo" width="120" height="120">
+    <img src="./public/logo.png" alt="RBAC Kit logo" width="120">
   </picture>
 </a>
 
