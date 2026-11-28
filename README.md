@@ -29,8 +29,8 @@
 <br />
 
 [**Documentation**](https://github.com/gitmahin/rbac-kit/tree/main/packages/node#readme) &nbsp;•&nbsp;
-[**Report Bug**](https://github.com/gitmahin/rbac-kit/issues/new?labels=bug) &nbsp;•&nbsp;
-[**Request Feature**](https://github.com/gitmahin/rbac-kit/issues/new?labels=enhancement)
+[**Report Bug**](https://github.com/gitmahin/rbac-kit/issues/new?template=bug_report.yaml) &nbsp;•&nbsp;
+[**Request Feature**](https://github.com/gitmahin/rbac-kit/issues/new?template=feature_request.yaml)
 
 <br />
 
