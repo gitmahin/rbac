@@ -115,7 +115,7 @@ export class RedisStorage extends RbacDataProvider implements IStorage {
     else return MESSAGE.nochange;
   }
 
-  async getRoles(): Promise<string[] | string> {
+  async getRoles(): Promise<string[]> {
     const data = await RedisStorage.redis.scan("0", {
       MATCH: `${this.uid}*`,
     });
