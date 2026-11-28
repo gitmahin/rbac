@@ -60,6 +60,12 @@ describe("LocalStorage", () => {
       const res = local.hasRole("admin");
       expect(res).toBe(true);
     });
+
+    test("addPermission should creates the role if role is missing and adds the permission", () => {
+      expect(local.addPermission("admin", "post:delete")).toBe(MESSAGE.success);
+      expect(local.hasRole("admin")).toBe(true);
+      expect(local.getPermissions("admin")).toEqual(["none", "post:delete"]);
+    });
   });
 
   describe("Create Permissions", () => {

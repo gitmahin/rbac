@@ -1,4 +1,5 @@
 import type { RedisClientType } from "@/type";
+import { createClient } from "redis";
 import { vi, type Mock } from "vitest";
 
 type MockRedisResult = {
@@ -20,6 +21,17 @@ export const mockRedis = (
 
   return { redis: redis as unknown as RedisClientType, scan, multi };
 };
+
+export const USE_REAL = process.env.USE_REAL_REDIS === "1";
+export const PREFIX = process.env.REDIS_TEST_PREFIX ?? "rbac-test";
+
+export const redis: any = USE_REAL
+  ? createClient({
+      url: process.env.REDIS_URL ?? "redis://localhost:6379",
+      username: process.env.REDIS_USERNAME ?? "default",
+      password: process.env.REDIS_PASSWORD ?? "default",
+    })
+  : createMockRedis().redis;
 
 // * This Mock is Created By Claude. I have reviewed it and it Works same as Real Redis Client
 export function createMockRedis() {

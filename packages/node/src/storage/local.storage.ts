@@ -6,7 +6,7 @@ import type { RedisClientType } from "@/type";
 export class LocalStorage extends RbacDataProvider implements IStorage {
   addRole(role: string): string {
     if (role == "") return MESSAGE.failed;
-    if (!this.access.get(role)) {
+    if (!this.access.has(role)) {
       this.access.set(role, {
         can: new Set(["none"]),
       });
@@ -18,7 +18,7 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
 
   addMPermissions(role: string, permissions: string[]): string {
     if (role == "" || !permissions.length) return MESSAGE.failed;
-    const existed_role = this.access.get(role);
+    const existed_role = this.access.has(role);
     if (!existed_role) {
       this.addRole(role);
     }
@@ -31,12 +31,12 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
 
   addPermission(role: string, permission: string): string {
     if (role == "" || permission == "") return MESSAGE.failed;
-    const existed_role = this.access.get(role);
+    const existed_role = this.access.has(role);
     if (!existed_role) {
       this.addRole(role);
     }
-    if (existed_role?.can.has(permission)) return MESSAGE.nochange;
-    existed_role?.can.add(permission);
+    if (this.access.get(role)?.can.has(permission)) return MESSAGE.nochange;
+    this.access.get(role)?.can.add(permission);
     return MESSAGE.success;
   }
 
@@ -76,7 +76,7 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
     const arr_num: number[] = [];
     const arr_str: string[] = [];
 
-    if (output == "string" && !this.access.get(role)) return [];
+    if (output == "string" && !this.access.has(role)) return [];
     for (const permission of permissions) {
       const hasPermission: boolean =
         this.access.get(role)?.can.has(permission) ?? false;
@@ -91,13 +91,20 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
   }
 
   async loadFromRedis(redis: RedisClientType, uid: string): Promise<string> {
-    const data = await redis.scan("0", {
-      MATCH: `${uid}*`,
-      TYPE: "set",
-    });
-    if (!data) return MESSAGE.failed;
+    const keys = new Set<string>();
+    let cursor = "0";
 
-    const roles = data.keys;
+    do {
+      const res = await redis.scan(cursor, {
+        MATCH: `${uid}*`,
+        TYPE: "set",
+        COUNT: 100,
+      });
+      cursor = String(res.cursor);
+      for (const key of res.keys) keys.add(key as string);
+    } while (cursor !== "0");
+
+    const roles = [...keys];
     if (!roles.length) return MESSAGE.failed;
 
     const multi = redis.multi();
@@ -107,16 +114,17 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
     const merged_permissions = await multi.exec();
 
     for (let i = 0; i < merged_permissions.length; i++) {
-      const role_without_access_key = (roles[i] as string).replace(
-        `${uid}:`,
-        ""
-      );
+      const role_without_access_key = (roles[i] as string)
+        .split(":")
+        .at(-1) as string;
+
       this.addRole(role_without_access_key);
       this.addMPermissions(
         role_without_access_key,
         merged_permissions[i] as unknown as string[]
       );
     }
+
     return MESSAGE.success;
   }
 
@@ -129,7 +137,7 @@ export class LocalStorage extends RbacDataProvider implements IStorage {
   removePermissions(role: string, permissions: string[]): string {
     if (role == "" || !permissions.length) return MESSAGE.failed;
     let num_of_deletes = 0;
-    if (!this.access.get(role)) return MESSAGE.nochange;
+    if (!this.access.has(role)) return MESSAGE.nochange;
     for (const permission of permissions) {
       const res = this.access.get(role)?.can.delete(permission);
       if (res) {

@@ -10,10 +10,7 @@ import {
   test,
   vi,
 } from "vitest";
-import { createMockRedis } from "./utils";
-
-const PREFIX = "user";
-const redis = createMockRedis().redis;
+import { PREFIX, redis } from "./utils";
 
 const clearTestKeys = async () => {
   const keys: string[] = [];
